@@ -1,12 +1,18 @@
 import express from 'express';
-import { register,profile,confirmAccount } from '../controllers/veterinarianController.js';
+import { register,profile,confirmAccount, authenticate } from '../controllers/veterinarianController.js';
+import checkAuth from '../middelware/appMiddelware.js';
 
 const router = express.Router();
 
+//registrar
 router.post("/", register)
-
-router.get('/profile',profile)
-
+//confirmar token
 router.get('/confirm/:token', confirmAccount)
+//autenticae
+router.post('/login', authenticate)
+
+
+//perfil -> para tener una restriccion
+router.get('/profile', checkAuth , profile)
 
 export default router;
