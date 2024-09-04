@@ -12,7 +12,7 @@ router.get('/confirm/:token', confirmAccount)
 router.post('/login', authenticate)
 
 
-//perfil -> para tener una restriccion
+//perfil -> comprobar el token
 router.get('/profile', checkAuth , profile)
 
 export default router;
