@@ -1,5 +1,6 @@
 import Veterinarian from "../models/Veterinarian.js";
 import generateJWT from "../helpers/generateJWT.js";
+import generateId from "../helpers/generateId.js";
 
 //Registrar al usuario
 const register = async (req,res) => {
@@ -22,7 +23,8 @@ const register = async (req,res) => {
 }
 
 const profile = (req,res) => {
-    res.json({msg:'Desde profile'})
+    const { veterinarian } = req
+    res.json({profile: veterinarian})
 }
 
 //confirmar la cuenta
@@ -70,9 +72,68 @@ const authenticate = async (req,res) => {
     }
 }
 
+const forgotPassword = async (req,res) => {
+    const {email} = req.body;
+    //primero que coincide con email
+    const existUser = await Veterinarian.findOne({email});
+    if(!existUser){
+        const error = new Error('El usario no existe')
+        return res.status(403).json({msg: error.message})
+    }
+    //en caso existe
+    try {
+        //generar un id unico y lo agrega al token
+        existUser.token = generateId();
+        //guardar en la bd
+        await existUser.save()
+        res.json({msg : 'Se envió un email con las instrucciones'})
+    } catch (error) {
+        const err = new Error('Hubo un error en el usario')
+        res.status(404).json({msg: err.message})
+    }
+}
+
+const checkToken = async (req,res) => {
+    const {token} = req.params
+    const tokenValid = await Veterinarian.findOne({token});
+    if(tokenValid){
+        //el token es valido y el usuario existe
+        res.json({msg:'Token válido y el usario existe'})
+    }else{
+        const error = new Error('Token no valido')
+        res.status(400).json({msg: error.message})
+    }
+}
+
+//una vez verificado que token y user exist
+const newPass = async (req,res) => {
+    const {token } = req.params;
+    const {password} = req.body;
+
+    const veterinarianExist = await Veterinarian.findOne({token})
+    
+    if(!veterinarianExist){
+        const error = new Error('Veterinario no existe');
+        res.status(400).json({msg : error.message});
+    }
+    //en caso de que si existe
+    try {
+        veterinarianExist.token = null;
+        veterinarianExist.password = password
+        console.log('hola');
+        await veterinarianExist.save()
+        res.json({msg:'Pass modificado correctamente'})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     register ,
     profile,
     confirmAccount,
-    authenticate
+    authenticate,
+    forgotPassword,
+    checkToken,
+    newPass
 }

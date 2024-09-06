@@ -39,11 +39,11 @@ const veterinarianSchema = mongoose.Schema({
 })
 
 //antes de guardar hasjaer el password
-veterinarianSchema.pre('save', async function(nex){
+veterinarianSchema.pre('save', async function(next){
     //evaluar si ya fue hasheado
     if(!this.isModified('password')){
         //middleware
-        nex();
+        next(); 
     }
     //hashear
     const salt = await bcrypt.genSalt(10);

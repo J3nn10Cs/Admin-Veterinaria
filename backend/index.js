@@ -2,11 +2,12 @@ import express from 'express';
 import dotenv from 'dotenv'
 import connectDb from './config/db.js';
 import router from './routes/veterinarianRouts.js';
+import routerPatients from './routes/patientRoutes.js';
 //manda a llamar la función de express
 const app = express();
 //para poder pasar datos
 app.use(express.json());
-const port = process.env.port || 400;
+const port = process.env.port || 4000;
 
 //leer el archivo
 dotenv.config();
@@ -16,6 +17,7 @@ connectDb()
 
 //rutas
 app.use('/api/veterinarians', router)
+app.use('/api/patients', routerPatients)
 
 app.listen(port, () => {
     console.log(`Servidor corriendo en el puerto ${port}`);
