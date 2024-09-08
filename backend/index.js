@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv'
 import connectDb from './config/db.js';
-import router from './routes/veterinarianRouts.js';
+import router from './routes/veterinaryRouts.js';
 import routerPatients from './routes/patientRoutes.js';
 //manda a llamar la función de express
 const app = express();
@@ -16,7 +16,7 @@ dotenv.config();
 connectDb()
 
 //rutas
-app.use('/api/veterinarians', router)
+app.use('/api/veterinaries', router)
 app.use('/api/patients', routerPatients)
 
 app.listen(port, () => {

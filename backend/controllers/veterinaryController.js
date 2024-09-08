@@ -1,4 +1,4 @@
-import Veterinarian from "../models/Veterinarian.js";
+import Veterinary from "../models/Veterinary.js";
 import generateJWT from "../helpers/generateJWT.js";
 import generateId from "../helpers/generateId.js";
 
@@ -6,32 +6,32 @@ import generateId from "../helpers/generateId.js";
 const register = async (req,res) => {
     const {email} = req.body;
     //Revisar si ya está registrado
-    const userExists = await Veterinarian.findOne({email})
+    const userExists = await Veterinary.findOne({email})
     if(userExists){
         const error = new Error('Exists user')
         return res.status(400).json({msg: error.message})
     }
     try {
         //Guardar un nuevo veterinario
-        const veterinarian = Veterinarian(req.body)
-        const veterinarianSave = await veterinarian.save();
+        const veterinary = Veterinary(req.body)
+        const veterinarySave = await veterinary.save();
         //format json
-        res.json({ msg : veterinarianSave})
+        res.json({ msg : veterinarySave})
     } catch (error) {
         console.log(error);
     }
 }
 
 const profile = (req,res) => {
-    const { veterinarian } = req
-    res.json({profile: veterinarian})
+    const { veterinary } = req
+    res.json({profile: veterinary})
 }
 
 //confirmar la cuenta
 const confirmAccount = async (req,res) => {
     // console.log(req.params.token);
     const {token} = req.params
-    const userConfirm = await Veterinarian.findOne({token});
+    const userConfirm = await Veterinary.findOne({token});
     if(!userConfirm){
         const error = new Error('Invalid tonken')
         return res.status(404).json({msg: `Error en ${error.message}`})
@@ -50,7 +50,7 @@ const confirmAccount = async (req,res) => {
 const authenticate = async (req,res) => {
     const {email,password} = req.body;
     //comprobar si el usuario existe
-    const user = await Veterinarian.findOne({email});
+    const user = await Veterinary.findOne({email});
     
     if(!user){
         const error = new Error('El usuario no existe');
@@ -75,7 +75,7 @@ const authenticate = async (req,res) => {
 const forgotPassword = async (req,res) => {
     const {email} = req.body;
     //primero que coincide con email
-    const existUser = await Veterinarian.findOne({email});
+    const existUser = await Veterinary.findOne({email});
     if(!existUser){
         const error = new Error('El usario no existe')
         return res.status(403).json({msg: error.message})
@@ -95,7 +95,7 @@ const forgotPassword = async (req,res) => {
 
 const checkToken = async (req,res) => {
     const {token} = req.params
-    const tokenValid = await Veterinarian.findOne({token});
+    const tokenValid = await Veterinary.findOne({token});
     if(tokenValid){
         //el token es valido y el usuario existe
         res.json({msg:'Token válido y el usario existe'})
@@ -110,18 +110,18 @@ const newPass = async (req,res) => {
     const {token } = req.params;
     const {password} = req.body;
 
-    const veterinarianExist = await Veterinarian.findOne({token})
+    const veterinaryExist = await Veterinary.findOne({token})
     
-    if(!veterinarianExist){
+    if(!veterinaryExist){
         const error = new Error('Veterinario no existe');
         res.status(400).json({msg : error.message});
     }
     //en caso de que si existe
     try {
-        veterinarianExist.token = null;
-        veterinarianExist.password = password
+        veterinaryExist.token = null;
+        veterinaryExist.password = password
         console.log('hola');
-        await veterinarianExist.save()
+        await veterinaryExist.save()
         res.json({msg:'Pass modificado correctamente'})
     } catch (error) {
         console.log(error);

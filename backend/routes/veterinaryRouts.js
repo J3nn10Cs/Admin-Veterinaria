@@ -1,5 +1,5 @@
 import express from 'express';
-import { register,profile,confirmAccount, authenticate, forgotPassword, checkToken, newPass } from '../controllers/veterinarianController.js';
+import { register,profile,confirmAccount, authenticate, forgotPassword, checkToken, newPass } from '../controllers/veterinaryController.js';
 import checkAuth from '../middelware/appMiddelware.js';
 
 const router = express.Router();
@@ -9,7 +9,7 @@ const router = express.Router();
 router.post("/", register)
 //confirmar token
 router.get('/confirm/:token', confirmAccount)
-//autenticae
+//autenticar
 router.post('/login', authenticate)
 //password olvidado -> validar email del usuario
 router.post('/forgot-password', forgotPassword)

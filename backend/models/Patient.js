@@ -22,9 +22,9 @@ const PatientsSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    veterinarian:{
+    veterinary:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Veterinarian'
+        ref: 'veterinary'
     }
 },{
     timestamps: true

@@ -1,5 +1,5 @@
 import express from "express";
-import { addPatient, getPatient } from "../controllers/patientController.js";
+import { addPatients, deletePatient, getPatient, getPatients, updatePatient } from "../controllers/patientController.js";
 import checkAuth from "../middelware/appMiddelware.js";
 const routerPatients = express.Router();
 
@@ -7,6 +7,15 @@ const routerPatients = express.Router();
 
 routerPatients.route('/')
     //proteger el endpoint
-    .post(checkAuth,addPatient).get(getPatient)
+    //obtener y agregar pacientes
+    .post(checkAuth,addPatients)
+    .get(checkAuth,getPatients)
 
+routerPatients.route('/:id')
+    //obtener un paciente
+    .get(checkAuth,getPatient)
+    //actualizar paciente
+    .put(checkAuth,updatePatient)
+    //eliminar un paciente
+    .delete(checkAuth,deletePatient)
 export default routerPatients

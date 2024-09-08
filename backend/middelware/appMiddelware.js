@@ -1,6 +1,6 @@
 
 import jwt from 'jsonwebtoken'
-import Veterinarian from '../models/Veterinarian.js';
+import veterinary from '../models/Veterinary.js';
 
 const checkAuth = async (req,res,next) => {
     let token;
@@ -12,7 +12,7 @@ const checkAuth = async (req,res,next) => {
             //verificar el token
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
             //trae todo menos pass -> sesion con veterinario
-            req.veterinarian = await Veterinarian.findById(decoded.id).select("-password -token -confirmed")
+            req.veterinary = await veterinary.findById(decoded.id).select("-password -token -confirmed")
             return next()
         } catch (error) {
             //si no hubo token
