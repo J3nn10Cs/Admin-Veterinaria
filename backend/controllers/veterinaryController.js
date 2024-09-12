@@ -1,10 +1,11 @@
 import Veterinary from "../models/Veterinary.js";
 import generateJWT from "../helpers/generateJWT.js";
 import generateId from "../helpers/generateId.js";
+import emailRegister from "../helpers/emailRegister.js";
 
 //Registrar al usuario
 const register = async (req,res) => {
-    const {email} = req.body;
+    const {email, name} = req.body;
     //Revisar si ya está registrado
     const userExists = await Veterinary.findOne({email})
     if(userExists){
@@ -15,6 +16,13 @@ const register = async (req,res) => {
         //Guardar un nuevo veterinario
         const veterinary = Veterinary(req.body)
         const veterinarySave = await veterinary.save();
+        //Enviar email
+        emailRegister({
+            email,
+            name,
+            token: veterinarySave.token
+        });
+
         //format json
         res.json({ msg : veterinarySave})
     } catch (error) {

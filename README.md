@@ -4,9 +4,9 @@
    │   ├── /public        # Archivos estáticos como imágenes, fuentes, etc.
    │   ├── /src
    │   │   ├── /components  # Componentes de React/Vue
-   │   │   ├── /styles      # Archivos CSS/SASS
+   │   │   ├── /styles      # Archivos CSS/Tailwind
    │   │   ├── /utils       # Utilidades comunes
-   │   │   └── index.js     # Punto de entrada de la aplicación
+   │   │   └── App.jsx      # Punto de entrada de la aplicación
    │   └── package.json     # Dependencias y scripts del frontend
    ├── /backend
    │   ├── /controllers    # Lógica de negocio

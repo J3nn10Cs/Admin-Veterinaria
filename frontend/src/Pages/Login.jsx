@@ -5,7 +5,7 @@ export const Login = () => {
     <>
       <Title/>
 
-      <div className="mt-20 md:mt-3 shadow-lg px-5 py-10 rounded-lg bg-white">
+      <div className="mt-20 md:mt-3 shadow-lg px-5 py-10 rounded-3xl bg-white">
         <form action="">
           <div className="my-5">
             <label htmlFor=""
