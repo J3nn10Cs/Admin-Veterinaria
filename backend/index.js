@@ -16,8 +16,8 @@ dotenv.config();
 //Conectar a la bd
 connectDb()
 
-//pasamos url a enviar datos
-const allowedDomains = ["http://localhost:5173"]
+//pasamos url a enviar datos del front
+const allowedDomains = [process.env.FRONT_URL]
 
 const corsOptions = {
     origin: function(origin, callback){

@@ -12,13 +12,13 @@ router.get('/confirm/:token', confirmAccount)
 //autenticar
 router.post('/login', authenticate)
 //password olvidado -> validar email del usuario
-router.post('/forgot-password', forgotPassword)
+router.post('/forget-password', forgotPassword)
 // //con el token -> leer el token ----
 // router.get('/forgot-password/:token', checkToken)
 // //nuevo password -> almacenar el new pass ----
 // router.post('/forgot-password/:token', newPass)
 
-router.route('/forgot-password/:token').get(checkToken).post(newPass)
+router.route('/forget-password/:token').get(checkToken).post(newPass)
 
 //----> Area priv
 //perfil -> comprobar el token
