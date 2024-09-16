@@ -1,9 +1,10 @@
-import { Title } from "../components/Title"
+import { Title } from "../../components/Title"
 import { Link } from "react-router-dom"
-import { Alerta } from "../components/Alerta"
+import { Alerta } from "../../components/Alerta"
 // import clientAxios from "../config/axios"
 import { useState } from "react"
-import clientAxios from "../config/axios"
+import clientAxios from "../../config/axios"
+
 export const ForgetPassword = () => {
   const [email,setEmail] = useState('')
   const [alerts,setAlerts] = useState({})
@@ -17,7 +18,6 @@ export const ForgetPassword = () => {
     }
 
     try {
-
         const {data} = await clientAxios.post('/veterinaries/forget-password', {email})
         console.log(data);
         setAlerts({msg: data.msg})

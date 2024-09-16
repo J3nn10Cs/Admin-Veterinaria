@@ -1,8 +1,8 @@
-import { Title } from "../components/Title"
-import { Alerta } from "../components/Alerta"
+import { Title } from "../../components/Title"
+import { Alerta } from "../../components/Alerta"
 import { useParams, Link } from "react-router-dom"
 import { useEffect, useState } from "react"
-import clientAxios from "../config/axios"
+import clientAxios from "../../config/axios"
 export const ConfirmAccount = () => {
 
   const [alerts,setAlerts] = useState({})

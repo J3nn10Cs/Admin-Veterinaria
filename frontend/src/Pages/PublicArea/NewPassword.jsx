@@ -1,9 +1,9 @@
-import { Title } from "../components/Title"
+import { Title } from "../../components/Title"
 import { useState, useEffect} from "react"
-import clientAxios from "../config/axios"
+import clientAxios from "../../config/axios"
 import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
-import { Alerta } from "../components/Alerta"
+import { Alerta } from "../../components/Alerta"
 
 export const NewPassword = () => {
   const [password,setPassword] = useState('')
@@ -94,7 +94,7 @@ export const NewPassword = () => {
         {/* si el password es modificado se muestra el enlacea iniciar sesión */}
         {passwordModified && <Link 
             className="block text-center my-5 text-gray-500"
-            to="/">Ya tienes una cuenta? Inicia Sesión
+            to="/">Inicia Sesión
           </Link>}
 
       </div>

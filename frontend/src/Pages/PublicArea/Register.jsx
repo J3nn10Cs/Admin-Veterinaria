@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
-import { Title } from "../components/Title"
+import { Title } from "../../components/Title"
 import { useState } from "react"
-import clientAxios from "../config/axios"
-import { Alerta } from "../components/Alerta"
+import clientAxios from "../../config/axios"
+import { Alerta } from "../../components/Alerta"
 
 export const Register = () => {
   const [name, SetName] = useState('')

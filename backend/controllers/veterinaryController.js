@@ -27,10 +27,12 @@ const register = async (req,res) => {
         //format json
         res.json({ msg : veterinarySave})
     } catch (error) {
-        console.log(error);
+        const err = new Error('Hubo un error en email o password')
+        res.status(404).json({msg: err.message})
     }
 }
 
+//ingresar al perfil
 const profile = (req,res) => {
     const { veterinary } = req
     res.json({profile: veterinary})
@@ -77,7 +79,8 @@ const authenticate = async (req,res) => {
         //almacenamos el id
         res.json({token: generateJWT(user.id) })
     }else{
-        console.log('Pass incorrect');
+        const error = new Error('El password es incorrecto');
+        return res.status(403).json({msg: error.message})
     }
 }
 
