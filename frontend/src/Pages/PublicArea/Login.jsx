@@ -3,10 +3,13 @@ import { Title } from "../../components/Title"
 import { useState } from "react"
 import { Alerta } from "../../components/Alerta"
 import clientAxios from "../../config/axios"
+import useAuth from "../../hooks/useAuth"
 export const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [alert, setAlert] = useState({})
+
+  const {setAuth} = useAuth();
 
   //redireccionar al usuaerio
   const navigate = useNavigate();
@@ -23,7 +26,7 @@ export const Login = () => {
       //le pasamos el email y pass
       const {data} = await clientAxios.post('/veterinaries/login', {email,password})
       localStorage.setItem('token', data.token)
-
+      setAuth(data)
       navigate('/admin')
     } catch (error) {
       setAlert({

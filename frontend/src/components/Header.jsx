@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom"
 import useAuth from "../hooks/useAuth"
+import { useState } from "react"
 
 export const Header = () => {
-
+  const [showForm, setShowForm] = useState(false)
   const {logOut} = useAuth()
   return (
     <>
@@ -12,9 +13,17 @@ export const Header = () => {
             <span className="text-white font-bold">Veterinaria</span>
           </h1>
 
-          <nav className="flex gap-6"> 
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className=""
+          >
+            {showForm ? (<i className="fa-solid fa-xmark bg-blue-400 rounded-full mb-4 text-white p-2 mt-3 lg:hidden"></i>
+          ) : (<i className="fa-solid fa-bars lg:hidden bg-blue-400 rounded-full text-white p-2 mb-0"></i>)}
+          </button>
+
+          <nav className={`${showForm ? 'flex flex-col items-center gap-3' : 'hidden' } flex gap-6 lg:flex-row lg:flex `}> 
             <Link to="/admin" className="text-white text-xl font-bold"> Pacientes </Link>
-            <Link to="/admin" className="text-white text-xl font-bold"> Perfil </Link>
+            <Link to="/profile" className="text-white text-xl font-bold"> Perfil </Link>
 
             <button
               type="button"

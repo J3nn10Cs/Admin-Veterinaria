@@ -13,7 +13,7 @@ const ProtectedRoute = () => {
       <Header/>
       {/* /* Si auth tiene algo muentra el outlet */}
       
-      {auth?.profile._id ? (
+      {auth?._id ? (
         <main className="container mx-auto mt-10">
           <Outlet/>
         </main>
