@@ -23,7 +23,7 @@ export const Header = () => {
 
           <nav className={`${showForm ? 'flex flex-col items-center gap-3' : 'hidden' } flex gap-6 lg:flex-row lg:flex `}> 
             <Link to="/admin" className="text-white text-xl font-bold"> Pacientes </Link>
-            <Link to="/profile" className="text-white text-xl font-bold"> Perfil </Link>
+            <Link to="/admin/profile" className="text-white text-xl font-bold"> Perfil </Link>
 
             <button
               type="button"

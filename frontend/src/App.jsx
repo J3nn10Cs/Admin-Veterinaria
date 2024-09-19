@@ -7,6 +7,8 @@ import { ForgetPassword } from "./Pages/PublicArea/ForgetPassword"
 import {NewPassword} from "./Pages/PublicArea/NewPassword"
 import { AdministratePatients } from "./Pages/ProtectedArea/AdministratePatients"
 import ProtectedRoute from "./layout/ProtectedRoute"
+import { ChangePassword } from "./Pages/ProtectedArea/ChangePassword"
+import { EditProfile } from "./Pages/ProtectedArea/EditProfile"
 
 import { AuthProvider } from "./context/AuthProvider"
 import { PatientsProvider } from "./context/PatientsProvider"
@@ -30,6 +32,8 @@ function App() {
               {/* area privada */}
               <Route path="/admin" element={<ProtectedRoute/>}>
                 <Route index element={<AdministratePatients/>}/>
+                <Route path="profile" element={<EditProfile/>}/>
+                <Route path="change-password" element={<ChangePassword/>}/>
               </Route>
             </Routes>
           </PatientsProvider>

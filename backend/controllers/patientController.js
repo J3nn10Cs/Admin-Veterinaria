@@ -7,7 +7,7 @@ const addPatients = async (req,res) => {
     patient.veterinary = req.veterinary._id
     try {
         const storedpatient = await patient.save();
-        res.json({storedpatient})
+        res.json(storedpatient)
     } catch (error) {
         const err = new Error('Hubo un error')
         res.status(400).json({msg: err.message})
@@ -19,7 +19,8 @@ const getPatients = async (req,res) => {
     //traer todos los pacientes
     // const patients = await Patient.find();
     const patients = await Patient.find().where('veterinary').equals(req.veterinary);
-    res.json({msg: patients})
+    //obtener los pacientes
+    res.json(patients)
 }
 
 //Obtener un paciente en especifico

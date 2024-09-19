@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Alerta } from "./Alerta"
 import usePatients from "../hooks/usePatients"
 
@@ -8,12 +8,24 @@ const Form = () => {
   const [email,setEmail] = useState('')
   const [date,setDate] = useState('')
   const [symptoms,setSymtoms] = useState('')
+  const [id, setId] = useState(null)
 
   const [alert, setAlert] = useState({})
 
   //Provider
-  const {savePatient} = usePatients()
-  console.log(savePatient);
+  const {savePatient, patient} = usePatients()
+  
+  useEffect(() => {
+    //revisar las propiedades del objeto
+    if(patient?.name){
+      setName(patient.name)
+      setPropietor(patient.proprietor)
+      setDate(patient.date)
+      setEmail(patient.email)
+      setSymtoms(patient.symptoms)
+      setId(patient._id)
+    }
+  }, [patient])
 
   //función
   const handleSubmit = e => {
@@ -27,21 +39,28 @@ const Form = () => {
       return
     }
 
-    //pasamos la alerta a vacío
-    setAlert({})
-
     //llamamos a la funcion
-    savePatient({name,proprietor,email,date,symptoms}) 
+    savePatient({name,proprietor,email,date,symptoms, id}) 
 
-
+    setAlert({msg: 'Guardado correctamente'})
+    setName('')
+    setPropietor('')
+    setDate('')
+    setDate('')
+    setId('')
+    setSymtoms('')
   }
 
   //extraer el mensaje
   const {msg} = alert
   return (
     <>
-      <p className="text-lg text-center mb-10">
-        Añade tus pacientes y {''} <span className="text-blue-500 font-bold">Administralos</span>
+
+      <h2 className="text-center text-blue-600 font-black text-3xl">
+        Administra tus pacientes
+      </h2>
+      <p className="text-xl mt-5 text-center mb-10">
+        Añade tus pacientes y {''} <span className="text-blue-700 font-bold">Administralos</span>
       </p>
 
       {msg && <Alerta
@@ -123,7 +142,7 @@ const Form = () => {
         <input 
           type="submit"
           className="bg-blue-500 text-white font-bold w-full rounded-md p-2 cursor-pointer hover:bg-blue-700"
-          value="Agregar paciente"
+          value={id ? 'Guardar cambios' : 'Agregar paciente'}
         />
       </form>
     </>
