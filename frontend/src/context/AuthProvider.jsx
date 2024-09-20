@@ -38,9 +38,40 @@ const AuthProvider = ({children}) => {
       authUser()
     }, [])
 
+    //cerrar sesión
     const logOut = () => {
       localStorage.removeItem('token')
       setAuth({})
+    }
+
+    //actuaizar perfil
+    const updateProfile = async (datas) => {
+      const token = localStorage.getItem('token');
+      if(!token){
+        setLoading(false)
+        return
+      }
+
+      //autenticar
+      const config = {
+        headers:{
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      }
+    
+      try {
+        const url = `/veterinaries/profile/${datas._id}`
+        const {data} = await clientAxios.put(url, datas, config)
+        return{
+          msg: 'Almacenado correctamente'
+        }
+      }catch (error) {
+        return {
+          msg: error.response.data.msg,
+          type: true
+        }
+      }
     }
 
   return (
@@ -50,7 +81,8 @@ const AuthProvider = ({children}) => {
           auth,
           setAuth,
           loading,
-          logOut
+          logOut,
+          updateProfile
         }}
       >
         {children}
@@ -60,4 +92,5 @@ const AuthProvider = ({children}) => {
 export {
   AuthProvider
 }
+
 export default AuthContext

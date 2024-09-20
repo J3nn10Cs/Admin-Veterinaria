@@ -1,23 +1,31 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Alerta } from "../../components/Alerta"
+import useAuth from "../../hooks/useAuth"
 
 export const EditProfile = () => {
-  const [name,setName] = useState('')
-  const [web,setWeb] = useState('')
-  const [phone,setPhone] = useState('')
-  const [email,setEmail] = useState('')
+  //inicia como objeto vacío
+  const [profile,setProfile] = useState({})
+  //obtener informacion del state
+  const {auth, updateProfile} = useAuth()
+
+  //cargar la infornacion
+  useEffect(() => {
+    setProfile(auth)
+  },[auth])
 
   const [alert,setAlert] = useState({})
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if([name,web,phone,email].includes('')){
+    const {name,email} = profile
+    if([email,name].includes('')){
       setAlert({msg:'Todos los campos son obligatorios', type: true})
       return
     }
 
-
+    //actualizamos y pasamos perfil -> bloqueamos el codigo hasta tener una respuesta
+    const result = await updateProfile(profile)
+    setAlert(result)
   }
 
   const {msg} = alert
@@ -41,8 +49,16 @@ export const EditProfile = () => {
                 type="text"
                 placeholder="Your name"
                 className="border w-full bg-gray-100 p-4 rounded-lg mt-2"
-                value={name}
-                onChange={e => setName(e.target.value)}
+                name="name"
+                //tarer el nombre del objeto
+                value={profile.name || ''}
+                //reescribe en el campo
+                onChange={e => setProfile({
+                  //copia del perfil
+                  ...profile,
+                  //
+                  [e.target.name] : e.target.value
+                })}
               />
             </div>
             <div className="my-3">
@@ -53,8 +69,13 @@ export const EditProfile = () => {
                 type="text"
                 placeholder="Your sitio web"
                 className="border w-full bg-gray-100 p-4 rounded-lg mt-2"
-                value={web}
-                onChange={e => setWeb(e.target.value)}
+                name="web"
+                value={profile.web || ''}
+                onChange={e => setProfile({
+                  //traemoes el copia del objeto
+                  ...profile,
+                  [e.target.name] : e.target.value
+                })}
               />
             </div>
             <div className="my-3">
@@ -65,8 +86,14 @@ export const EditProfile = () => {
                 type="number"
                 placeholder="Your phone"
                 className="border w-full bg-gray-100 p-4 rounded-lg mt-2"
-                value={phone}
-                onChange={e => setPhone(e.target.value)}
+                name="phone"
+                value={profile.phone || ''}
+                onChange={e => setProfile({
+                  //copia del objeto
+                  ...profile,
+                  //
+                  [e.target.name] : e.target.value
+                })}
               />
             </div>
             <div className="my-3">
@@ -76,17 +103,25 @@ export const EditProfile = () => {
               <input 
                 type="email"
                 placeholder="Your email"
+                name="email"
                 className="border w-full bg-gray-100 p-4 rounded-lg mt-2"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
+                value={profile.email || ''}
+                onChange={e => setProfile({
+                  //copia del perfil
+                  ...profile,
+                  //
+                  [e.target.name] : e.target.value
+                })}
               />
             </div>
             <button 
               type="submit"
-              className="bg-blue-500 text-white rounded-lg text-center mt-2 py-3 w-full hover:bg-blue-700"
+              className="bg-blue-500 text-white rounded-lg text-center mt-2 py-3 w-full hover:bg-blue-700 font-bold"
               onClick={handleSubmit}
             >
-              <i className="fa-solid fa-floppy-disk fa-xl"></i>
+              Guardar cambios 
+              <i className="fa-solid fa-floppy-disk fa-xl mx-2"></i>
+
             </button>
           </form>
         </div>

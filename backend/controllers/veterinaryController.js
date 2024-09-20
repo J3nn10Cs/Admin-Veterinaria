@@ -35,7 +35,47 @@ const register = async (req,res) => {
 //ingresar al perfil
 const profile = (req,res) => {
     const { veterinary } = req
-    res.json({veterinary})
+    res.json(veterinary)
+}
+
+//actualizar perfil
+const updateProfile = async (req,res) => {
+    //encontrar el veterionario a editar
+    const veterinary = await Veterinary.findById(req.params.id)
+
+    if(!veterinary){
+        const error = new Error('Hubo un error')
+        return res.status(403).json({msg: error.message})
+    }
+
+    const {email} = req.body
+    //el usuario modifica su email por uno nuevo
+    if(veterinary.email !== req.body.email){
+        //evaluamos si ya existe
+        const existEmail = await Veterinary.findOne({email})
+        if(existEmail){
+            //muestra error de que ya está en uso
+            const error = new Error('Email en uso')
+            res.status(400).json({msg: error.message})
+        }
+    }
+
+    //contiene info ya existente 
+    try {
+        //el nombre/email/etc va a ser igual a los datos que ingresó el veti si no, se le asigan lo que está en la bd
+        // veterinary.name = req.body.name || veterinary.name
+        //el nombre/email/etc va a ser igual a los datos que ingresó el veti
+        veterinary.name = req.body.name
+        veterinary.email = req.body.email 
+        veterinary.web = req.body.web 
+        veterinary.phone = req.body.phone 
+
+        //el veterinario actualizado lo guardamos en la bd
+        const veterinaryUpdate = await veterinary.save();
+        res.json(veterinaryUpdate);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 //confirmar la cuenta
@@ -76,11 +116,13 @@ const authenticate = async (req,res) => {
 
     //revisar pass
     if(await user.checkPassword(password)){
-        //almacenamos el id
+        //almacenamos el id y traemos los campos que deseamos
         res.json({
             _id: user._id,
             name: user.name,
             email: user.email,
+            web: user.web,
+            phone: user.phone,
             token: generateJWT(user.id)
         })
     }else{
@@ -107,7 +149,7 @@ const forgotPassword = async (req,res) => {
         emailForgetPassword({
             email,
             name:existUser.name,
-            token: existUser.token
+            token: existUser.token,
         })
         console.log(`Mensaje enviado ${token}`);
         res.json({msg : 'Se envió un email con las instrucciones'})
@@ -159,5 +201,6 @@ export {
     authenticate,
     forgotPassword,
     checkToken,
-    newPass
+    newPass,
+    updateProfile
 }
