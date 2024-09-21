@@ -2,11 +2,30 @@ import { useState } from "react";
 import { Alerta } from "../../components/Alerta";
 export const ChangePassword = () => {
   const [alert,setAlert] = useState({})
-  const [password,setPassword] = useState({})
+  const [password,setPassword] = useState({
+    password: '',
+    passwordnew: ''
+  })
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('cambiando contraseña');
+
+    //si al menos un campo está vacio retorna true -> some
+    if(Object.values(password).some(fiels => fiels === '')){
+      setAlert({
+        msg:'Todos los campos son obligatorios',
+        type: true
+      })
+      return
+    }
+    
+    if(password.passwordnew.length < 6){
+      setAlert({
+        msg:'El password debe tener minimo 6 caracteres',
+        type: true
+      })
+      return
+    }
   }
 
   const {msg} = alert
@@ -34,16 +53,16 @@ export const ChangePassword = () => {
                 className="border bg-gray-100 rounded-lg p-3 w-full mt-2 dark:bg-slate-700 dark:text-white"
                 name="password"
                 placeholder="Your password"
-                value={password}
                 onChange={e => setPassword({
+                  // copia de lo que hay en el state
                   ...password,
                   [e.target.name] : e.target.value
                 })}
               />
-            </div>
+            </div>  
             <div className="my-3">
               <label 
-                htmlFor="password-new"
+                htmlFor="password_new"
                 className="font-bold text-gray-500 dark:text-gray-300"
               >
                 Password nuevo
@@ -51,8 +70,13 @@ export const ChangePassword = () => {
               <input 
                 type="password"
                 className="border bg-gray-100 rounded-lg p-3 w-full mt-2 dark:bg-slate-700 dark:text-white"
-                name="password-new"
+                name="passwordnew"
                 placeholder="Your new password"
+                onChange={e => setPassword({
+                  // copia de lo que hay en el state
+                  ...password,
+                  [e.target.name] : e.target.value
+                })}
               />
             </div>
               <button 
