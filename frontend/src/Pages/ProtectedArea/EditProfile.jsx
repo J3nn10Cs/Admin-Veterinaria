@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Alerta } from "../../components/Alerta"
 import useAuth from "../../hooks/useAuth"
+import { Link } from "react-router-dom"
 
 export const EditProfile = () => {
   //inicia como objeto vacío
@@ -31,24 +32,24 @@ export const EditProfile = () => {
   const {msg} = alert
   return (
     <>
-      <h2 className="text-center text-4xl font-bold">Edita tu perfil</h2>
+      <h2 className="text-center text-4xl font-bold dark:text-white">Edita tu perfil</h2>
 
-      <p className="text-center mt-3 mb-6 font-bold text-lg">Modifica tu {''} <span className="text-blue-500">informacion aqui</span></p>
+      <p className="text-center mt-3 mb-6 font-bold text-lg dark:text-white">Modifica tu {''} <span className="text-blue-500">informacion aqui</span></p>
 
       <div className="flex justify-center">
-        <div className="w-full bg-white shadow rounded-xl p-5 md:w-1/2">
+        <div className="w-full bg-white shadow rounded-xl p-5 md:w-1/2 dark:bg-slate-900">
         {msg && <Alerta
           alerts={alert}
         />}
           <form>
             <div className="my-3">
               <label 
-                className="font-bold text-gray-500"
+                className="font-bold text-gray-500 dark:text-gray-300"
               >Name</label>
               <input 
                 type="text"
                 placeholder="Your name"
-                className="border w-full bg-gray-100 p-4 rounded-lg mt-2"
+                className="border w-full bg-gray-100 p-4 rounded-lg mt-2 dark:bg-slate-700 dark:text-white"
                 name="name"
                 //tarer el nombre del objeto
                 value={profile.name || ''}
@@ -63,12 +64,12 @@ export const EditProfile = () => {
             </div>
             <div className="my-3">
               <label 
-                className="font-bold text-gray-500"
+                className="font-bold text-gray-500 dark:text-gray-300"
               >Sitio Web</label>
               <input 
                 type="text"
                 placeholder="Your sitio web"
-                className="border w-full bg-gray-100 p-4 rounded-lg mt-2"
+                className="border w-full bg-gray-100 p-4 rounded-lg mt-2 dark:bg-slate-700 dark:text-white"
                 name="web"
                 value={profile.web || ''}
                 onChange={e => setProfile({
@@ -80,12 +81,12 @@ export const EditProfile = () => {
             </div>
             <div className="my-3">
               <label 
-                className="font-bold text-gray-500"
+                className="font-bold text-gray-500 dark:text-gray-300"
               >Phone</label>
               <input 
                 type="number"
                 placeholder="Your phone"
-                className="border w-full bg-gray-100 p-4 rounded-lg mt-2"
+                className="border w-full bg-gray-100 p-4 rounded-lg mt-2 dark:bg-slate-700 dark:text-white"
                 name="phone"
                 value={profile.phone || ''}
                 onChange={e => setProfile({
@@ -98,13 +99,13 @@ export const EditProfile = () => {
             </div>
             <div className="my-3">
               <label 
-                className="font-bold text-gray-500"
+                className="font-bold text-gray-500 dark:text-gray-300"
               >email</label>
               <input 
                 type="email"
                 placeholder="Your email"
                 name="email"
-                className="border w-full bg-gray-100 p-4 rounded-lg mt-2"
+                className="border w-full bg-gray-100 p-4 rounded-lg mt-2 dark:bg-slate-700 dark:text-white"
                 value={profile.email || ''}
                 onChange={e => setProfile({
                   //copia del perfil
@@ -114,15 +115,26 @@ export const EditProfile = () => {
                 })}
               />
             </div>
-            <button 
-              type="submit"
-              className="bg-blue-500 text-white rounded-lg text-center mt-2 py-3 w-full hover:bg-blue-700 font-bold"
-              onClick={handleSubmit}
-            >
-              Guardar cambios 
-              <i className="fa-solid fa-floppy-disk fa-xl mx-2"></i>
 
-            </button>
+            <div className="flex gap-2">
+              <button 
+                type="submit"
+                className="bg-blue-500 text-white rounded-lg text-center mt-2 py-3 w-full hover:bg-blue-700 font-bold"
+                onClick={handleSubmit}
+              >
+                Guardar cambios 
+                <i className="fa-solid fa-floppy-disk fa-xl mx-2"></i>
+
+              </button>
+
+              <Link 
+                to="/admin/change-password"
+                className="bg-red-500 text-white rounded-lg text-center mt-2 py-3 w-full hover:bg-red-700 font-bold"
+              >
+                  Cambiar contraseña
+                <i className="fa-solid fa-pen fa-xl mx-2"></i>
+              </Link>
+            </div>
           </form>
         </div>
       </div>

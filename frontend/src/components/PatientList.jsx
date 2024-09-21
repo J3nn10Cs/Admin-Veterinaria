@@ -10,7 +10,7 @@ const PatientList = () => {
             Listado de pacientes
           </h2>
 
-          <p className="text-xl mt-5 mb-10 text-center">
+          <p className="text-xl mt-5 mb-10 text-center dark:text-white">
             Administra tus {''} 
             <span className="font-bold text-blue-700">Pacientes y citas </span>
           </p>

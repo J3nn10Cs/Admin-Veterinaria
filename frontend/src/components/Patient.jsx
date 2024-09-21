@@ -21,21 +21,21 @@ const Patient = ({patient}) => {
   }
   return (
     <>
-      <div className="mx-5 bg-white my-5 shadow-md p-7 rounded-xl">
-        <p className="font-bold text-gray-600">
-          Name : <span className="font-normal normal-case text-black">{name}</span>
+      <div className="mx-5 bg-white dark:bg-slate-700 my-5 shadow-md p-7 rounded-xl">
+        <p className="font-bold text-gray-600 dark:text-white">
+          Name : <span className="font-normal normal-case text-black dark:text-white">{name}</span>
         </p>
-        <p className="font-bold text-gray-600">
-          Propietor : <span className="font-normal normal-case text-black">{proprietor}</span>
+        <p className="font-bold text-gray-600 dark:text-white">
+          Propietor : <span className="font-normal normal-case text-black dark:text-white">{proprietor}</span>
         </p>
-        <p className="font-bold text-gray-600">
-          Email : <span className="font-normal normal-case text-black">{email}</span>
+        <p className="font-bold text-gray-600 dark:text-white">
+          Email : <span className="font-normal normal-case text-black dark:text-white">{email}</span>
         </p>
-        <p className="font-bold text-gray-600">
-          Date : <span className="font-normal normal-case text-black">{formatDate(date)}</span>
+        <p className="font-bold text-gray-600 dark:text-white">
+          Date : <span className="font-normal normal-case text-black dark:text-white">{formatDate(date)}</span>
         </p>
-        <p className="font-bold text-gray-600">
-          Symptoms : <span className="font-normal normal-case text-black">{symptoms}</span>
+        <p className="font-bold text-gray-600 dark:text-white">
+          Symptoms : <span className="font-normal normal-case text-black dark:text-white">{symptoms}</span>
         </p>
 
         <div className="flex justify-between my-5">
