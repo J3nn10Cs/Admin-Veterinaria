@@ -1,11 +1,14 @@
 import { createContext, useState, useEffect } from "react";
 import clientAxios from "../config/axios";
+import useAuth from "../hooks/useAuth";
 
 const PatientsContext =  createContext();
 
 export const PatientsProvider = ({children}) => {
   const [patients,setPatients] = useState([])
   const [patient, setPatient] = useState({})
+
+  const {auth} = useAuth()
 
   //al momento de cargar el componente mandar a llamar la api
   useEffect(() => {
@@ -31,7 +34,7 @@ export const PatientsProvider = ({children}) => {
       }
     }
     getPatients()
-  },[])
+  },[auth])
   
   const setEdition = (patient) => {
     setPatient(patient)
