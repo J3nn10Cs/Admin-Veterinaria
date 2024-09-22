@@ -194,6 +194,33 @@ const newPass = async (req,res) => {
     }
 }
 
+//actualizar password
+const updatePassword = async (req,res) => {
+    //leer los datos del veterinario
+    const {id} = req.veterinary
+    const {password, passwordnew} = req.body
+    //comprobar si existe el veterinario
+    const veterinary = await Veterinary.findById(id)
+
+    if(!veterinary){
+        const error = new Error('Hubo un error')
+        return res.status(403).json({msg: error.message})
+    }
+    //comprobar el pass
+    if(await veterinary.checkPassword(password)){
+        //guardar el nuevo pass
+        veterinary.password = passwordnew
+
+        //almacenamos en la bd
+        await veterinary.save()
+
+        res.json({msg:'Password almacenado correctamente'})
+    }else{
+        const err = new Error('El password ingresado no es correcto')
+        return res.status(400).json({msg : err.message})
+    }
+}
+
 export {
     register ,
     profile,
@@ -202,5 +229,6 @@ export {
     forgotPassword,
     checkToken,
     newPass,
-    updateProfile
+    updateProfile,
+    updatePassword
 }

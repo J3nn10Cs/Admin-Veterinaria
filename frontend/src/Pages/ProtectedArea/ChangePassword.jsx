@@ -1,13 +1,19 @@
 import { useState } from "react";
 import { Alerta } from "../../components/Alerta";
+import useAuth from "../../hooks/useAuth"
+
 export const ChangePassword = () => {
+  //extraemos savepass de useauth
+  const {savePassword} = useAuth()
+
   const [alert,setAlert] = useState({})
   const [password,setPassword] = useState({
+    //lo iniciamos con vacio
     password: '',
     passwordnew: ''
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     //si al menos un campo está vacio retorna true -> some
@@ -26,8 +32,12 @@ export const ChangePassword = () => {
       })
       return
     }
-  }
 
+    //retorna alguna respuesta
+    const result = await savePassword(password)
+    setAlert(result)
+  }
+  
   const {msg} = alert
   return (
     <>

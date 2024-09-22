@@ -1,5 +1,5 @@
 import express from 'express';
-import { register,profile,confirmAccount, authenticate, forgotPassword, checkToken, newPass, updateProfile } from '../controllers/veterinaryController.js';
+import { register,profile,confirmAccount, authenticate, forgotPassword, checkToken, newPass, updateProfile, updatePassword } from '../controllers/veterinaryController.js';
 import checkAuth from '../middelware/appMiddelware.js';
 
 const router = express.Router();
@@ -24,5 +24,6 @@ router.route('/forget-password/:token').get(checkToken).post(newPass)
 //perfil -> comprobar el token
 router.get('/profile', checkAuth , profile)
 router.put('/profile/:id', checkAuth , updateProfile)
+router.put('/update-password', checkAuth , updatePassword)
 
 export default router;

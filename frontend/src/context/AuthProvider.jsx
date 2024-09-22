@@ -64,7 +64,7 @@ const AuthProvider = ({children}) => {
         const url = `/veterinaries/profile/${datas._id}`
         const {data} = await clientAxios.put(url, datas, config)
         return{
-          msg: 'Almacenado correctamente'
+          msg: data.msg
         }
       }catch (error) {
         return {
@@ -72,6 +72,39 @@ const AuthProvider = ({children}) => {
           type: true
         }
       }
+    }
+
+    //guardar password nuevo
+    const savePassword = async (datas) => {
+      const token = localStorage.getItem('token');
+        if(!token){
+          setLoading(false)
+          return
+        }
+
+        //autenticar
+        const config = {
+          headers:{
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
+        }
+
+        try {
+          const url = '/veterinaries/update-password'
+          //respuesta de axios
+          const {data} = await clientAxios.put(url, datas, config)
+          console.log(data);
+          return {
+            msg: data.msg
+          }
+        } catch (error) {
+          console.log(error.response.data.msg);
+          return{
+            msg: error.response.data.msg,
+            type : true
+          }
+        }
     }
 
   return (
@@ -82,7 +115,8 @@ const AuthProvider = ({children}) => {
           setAuth,
           loading,
           logOut,
-          updateProfile
+          updateProfile,
+          savePassword
         }}
       >
         {children}
