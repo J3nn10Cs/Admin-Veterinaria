@@ -21,12 +21,20 @@ export const ForgetPassword = () => {
         const {data} = await clientAxios.post('/veterinaries/forget-password', {email})
         console.log(data);
         setAlerts({msg: data.msg})
+        //luego de 3 segundos se elimina la alerta  
+        setTimeout(() => {
+          setAlerts({})
+        }, 3000);
     } catch (error) {
         //si en caso el usuario no existe
         setAlerts({
           msg: error.response.data.msg,
           type: true
         })
+        //luego de 3 segundos se elimina la alerta  
+        setTimeout(() => {
+          setAlerts({})
+        }, 3000);
     }
   }
   const {msg} = alerts
@@ -34,7 +42,7 @@ export const ForgetPassword = () => {
     <>
       <Title />
 
-      <div className="mt-20 md:mt-2 shadow-lg px-5 py-10 rounded-3xl bg-white">
+      <div className="mt-20 md:mt-2 shadow-lg px-5 py-10 rounded-3xl bg-white dark:bg-slate-900">
         {msg && <Alerta
           alerts={alerts}
         />}
@@ -43,13 +51,13 @@ export const ForgetPassword = () => {
         >
           <div className="my-5">
             <label htmlFor=""
-              className=" text-gray-600 block text-xl font-bold"
+              className=" text-gray-600 block text-xl font-bold dark:text-gray-300"
             >
               Email
             </label>
             <input
               type="email"
-              className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+              className="border w-full p-3 mt-3 bg-gray-50 rounded-xl dark:bg-slate-700 dark:text-white"
               placeholder="Your email"
               value={email}
               onChange={e => setEmail(e.target.value)}
@@ -65,11 +73,11 @@ export const ForgetPassword = () => {
           className="mt-6 lg:flex lg:justify-between"
         >
           <Link 
-            className="block text-center my-5 text-gray-500"
+            className="block text-center my-5 text-gray-500 font-bold dark:text-white"
             to="/">Ya tienes una cuenta? Inicia sesión
           </Link>
           <Link 
-            className="block text-center my-5 text-gray-500"
+            className="block text-center my-5 text-gray-500 font-bold dark:text-white"
             to="/register">No tienes una cuenta? Registrate
           </Link>
         </nav>

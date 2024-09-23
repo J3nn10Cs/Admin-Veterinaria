@@ -36,6 +36,11 @@ const Form = () => {
         msg: 'Todos los campos son obligatorios', 
         type:true
       })
+
+      //luego de 3 segundos se elimina la alerta  
+      setTimeout(() => {
+        setAlert({})
+      }, 3000);
       return
     }
 
@@ -45,7 +50,7 @@ const Form = () => {
     setAlert({msg: 'Guardado correctamente'})
     setName('')
     setPropietor('')
-    setDate('')
+    setEmail('')
     setDate('')
     setId('')
     setSymtoms('')
@@ -53,6 +58,7 @@ const Form = () => {
 
   //extraer el mensaje
   const {msg} = alert
+  
   return (
     <>
 

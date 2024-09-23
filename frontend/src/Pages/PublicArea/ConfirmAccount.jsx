@@ -21,12 +21,20 @@ export const ConfirmAccount = () => {
         setAlerts({
           msg: data.msg,
         })
+        //luego de 3 segundos se elimina la alerta  
+        setTimeout(() => {
+          setAlerts({})
+        }, 3000);
       } catch (error) {
         //para obtener el error del backend
         setAlerts({
           msg: error.response.data.msg,
           type: true
         })
+        //luego de 3 segundos se elimina la alerta  
+        setTimeout(() => {
+          setAlerts({})
+        }, 3000);
       }
       setLoading(false)
     }
@@ -36,7 +44,7 @@ export const ConfirmAccount = () => {
   return (
     <>
       <Title />
-      <div className="mt-20 md:mt-2 shadow-lg px-5 py-10 rounded-3xl bg-white">
+      <div className="mt-20 md:mt-2 shadow-lg px-5 py-10 rounded-3xl bg-white dark:bg-slate-900">
         {/* /mientras sea diferente a cargando mandar alerta */}
         {!loading && <Alerta
           alerts={alerts}
@@ -44,7 +52,7 @@ export const ConfirmAccount = () => {
           {/* si la cuenta está confirmada */}
         {confirmedAccount && (
           <Link 
-            className="block text-center my-5 text-gray-500"
+            className="block text-center my-5 text-gray-500 font-bold dark:text-white"
             to="/">Iniciar sesión
           </Link>
         )}

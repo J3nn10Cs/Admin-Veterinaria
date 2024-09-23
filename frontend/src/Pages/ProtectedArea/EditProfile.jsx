@@ -20,7 +20,12 @@ export const EditProfile = () => {
     e.preventDefault();
     const {name,email} = profile
     if([email,name].includes('')){
-      setAlert({msg:'Todos los campos son obligatorios', type: true})
+      setAlert({msg:'Nombre e email son obligatorios', type: true})
+      //luego de 3 segundos se elimina la alerta  
+      setTimeout(() => {
+        setAlert({})
+      }, 3000);
+      
       return
     }
 

@@ -50,8 +50,16 @@ export const NewPassword = () => {
       setAlerts({
         msg: data.msg
       })
+      //luego de 3 segundos se elimina la alerta  
+      setTimeout(() => {
+        setAlerts({})
+      }, 3000);
     } catch (error) {
       setAlerts({msg: error.response.data.msg, type: true})
+      //luego de 3 segundos se elimina la alerta  
+      setTimeout(() => {
+        setAlerts({})
+      }, 3000);
     }
   }
 
@@ -93,7 +101,7 @@ export const NewPassword = () => {
         
         {/* si el password es modificado se muestra el enlacea iniciar sesión */}
         {passwordModified && <Link 
-            className="block text-center my-5 text-gray-500"
+            className="block text-center my-5 text-gray-500 font-bold"
             to="/">Inicia Sesión
           </Link>}
 

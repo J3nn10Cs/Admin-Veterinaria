@@ -22,6 +22,11 @@ export const ChangePassword = () => {
         msg:'Todos los campos son obligatorios',
         type: true
       })
+      //luego de 3 segundos se elimina la alerta  
+      setTimeout(() => {
+        setAlert({})
+      }, 3000);
+
       return
     }
     

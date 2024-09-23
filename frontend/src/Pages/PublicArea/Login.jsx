@@ -18,6 +18,10 @@ export const Login = () => {
     e.preventDefault();
     if([email,password].includes('')){
       setAlert({msg: 'Todos los campos son obligatorios', type: true})
+      //luego de 3 segundos se elimina la alerta  
+      setTimeout(() => {
+        setAlert({})
+      }, 3000);
       return
     }
 
@@ -33,6 +37,10 @@ export const Login = () => {
         msg: error.response.data.msg,
         type: true
       })
+      //luego de 3 segundos se elimina la alerta  
+      setTimeout(() => {
+        setAlert({})
+      }, 3000);
     }
   }
   const {msg} = alert
@@ -40,7 +48,7 @@ export const Login = () => {
     <>
       <Title/>
 
-      <div className="mt-20 md:mt-3 shadow-lg px-5 py-10 rounded-3xl bg-white">
+      <div className="mt-20 md:mt-3 shadow-lg px-5 py-10 rounded-3xl bg-whit dark:bg-slate-900">
         {msg && <Alerta
           alerts={alert}
         />}
@@ -49,27 +57,28 @@ export const Login = () => {
         >
           <div className="my-5">
             <label htmlFor=""
-              className=" text-gray-600 block text-xl font-bold"
+              className=" text-gray-700 block text-xl font-bold dark:text-gray-300"
             >
                 Email
             </label>
             <input 
               type="email"
-              className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+              className="border w-full p-3 mt-3 bg-gray-50 rounded-xl dark:text-white dark:bg-slate-700"
               placeholder="Your email"
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
           </div>
           <div className="my-5">
-            <label htmlFor=""
-              className=" text-gray-600 block text-xl font-bold"
+            <label 
+              htmlFor="password"
+              className="text-gray-700 block text-xl font-bold dark:text-gray-300"
             >
                 Password
             </label>
             <input 
               type="password"
-              className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+              className="border w-full p-3 mt-3 bg-gray-50 rounded-xl dark:bg-slate-700 dark:text-white"
               placeholder="Your password"
               value={password}
               onChange={e => setPassword(e.target.value)}
@@ -85,11 +94,11 @@ export const Login = () => {
           className="mt-6 lg:flex lg:justify-between"
         >
           <Link 
-            className="block text-center my-5 text-gray-500"
+            className="block text-center my-5 text-gray-500 font-bold dark:text-white"
             to="/register">No tienes una cuenta? Registrate
           </Link>
           <Link 
-            className="block text-center my-5 text-gray-500"
+            className="block text-center my-5 text-gray-500 font-bold dark:text-white"
             to="/forget-password">Olvide mi contraseña
           </Link>
         </nav>

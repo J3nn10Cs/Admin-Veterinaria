@@ -4,20 +4,28 @@ import { useEffect, useState } from "react"
 
 export const Header = () => {
   const [showForm, setShowForm] = useState(false)
-  const [monn, setMoon] = useState(false)
+  const [monn, setMoon] = useState(() => {
+    const saveDark = localStorage.getItem('dark');
+    return saveDark === 'true'
+  })
+  console.log('valor de moon ', monn);
   const {logOut} = useAuth()
 
   useEffect(() => {
+    
     if(monn){
       document.documentElement.classList.add('dark');
+      localStorage.setItem('dark','true')
     }else{
       document.documentElement.classList.remove('dark');
+      localStorage.setItem('dark','false')
     }
 
   },[monn])
+
   return (
     <>
-      <header className="py-10 bg-blue-400">
+      <header className="py-10 bg-blue-400 dark:bg-blue-900">
         <div className="container mx-auto flex flex-col lg:flex-row justify-between items-center">
           
             <Link
@@ -42,28 +50,28 @@ export const Header = () => {
           <nav className={`${showForm ? 'flex flex-col items-center gap-3' : 'hidden' } flex gap-6 lg:flex-row lg:flex `}> 
 
               {/* pacientes */}
-            <Link to="/admin" className="text-white text-xl font-bold dark:text-gray-600"> Pacientes </Link>
+            <Link to="/admin" className="text-white text-xl font-bold dark:text-gray-200"> Pacientes </Link>
 
               {/* THEMA */}
             <button
               onClick={() => setMoon(!monn)}
             >
               {monn ? (
-                <i className="fa-solid fa-sun fa-lg text-white dark:text-gray-600"></i>
+                <i className="fa-solid fa-sun fa-lg text-white dark:text-gray-200"></i>
               ):(
                 <i className="fa-solid fa-moon fa-lg text-white"></i>
               )}
             </button>
 
               {/* perfil */}
-            <Link to="/admin/profile" className="text-white text-xl font-bold dark:text-gray-600"> Perfil </Link>
+            <Link to="/admin/profile" className="text-white text-xl font-bold dark:text-gray-200"> Perfil </Link>
 
               {/* cerrar sesion */}
             <button
               type="button"
               onClick={logOut}
             >
-              <i className="fa-solid fa-right-from-bracket fa-xl text-white dark:text-gray-600"></i>
+              <i className="fa-solid fa-right-from-bracket fa-xl text-white dark:text-gray-200"></i>
             </button>
 
           </nav>
