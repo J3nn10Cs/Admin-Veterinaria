@@ -29,7 +29,7 @@ const PatientList = () => {
         // en caso no haya pacientes
         (<>
           <h2 className="text-center text-blue-600 font-black text-3xl">No hay pacientes</h2>
-          <p className="text-xl mt-5 mb-10 text-center">
+          <p className="text-xl mt-5 mb-10 text-center font-bold">
             Comienza agregando un paciente
           </p>
         </>)}
