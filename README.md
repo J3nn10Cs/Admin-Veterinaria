@@ -16,7 +16,7 @@
    │   ├── /helpers          # Funciones de utilidad
    │   ├── /config         # Configuración de base de datos y variables de entorno
    │   ├── .gitignore          # Archivos y carpetas a ignorar en Git
-   ├── index.js       # Punto de entrada del servidor
+   │   ├── index.js       # Punto de entrada del servidor
    ├── .env                # Variables de entorno
    └── README.md           # Documentación del proyecto
 ```
